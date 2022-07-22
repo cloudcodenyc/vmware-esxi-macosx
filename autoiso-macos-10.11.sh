@@ -43,9 +43,9 @@ fi
 [ -e "./Install-OSX-$VERSION/" ] && rm -rf "./Install-OSX-$VERSION/"
 	hdiutil attach "./$ESD_NAME.dmg" -noverify -nobrowse -mountpoint "/Volumes/OSX-$VERSION-InstallESD/"
 	# Get InstallESD.dmg Total Non-Empty Size ( Bytes )
-	ESDSIZE=$(hdiutil imageinfo "./$ESD_NAME.dmg" | grep --line-buffered -e 'Total Non-Empty Bytes:' | cut -d ' ' -f4)
-	EFISIZE=$(hdiutil imageinfo "./$ESD_NAME.dmg" | grep --line-buffered -e 'partition-name: EFI System Partition' -A7 | grep -e 'partition-length:' | cut -d ' ' -f2)
-	echo '' ; echo "$ESD_NAME.dmg" && echo "Filesize (bytes): $COUNT" ; echo ''
+	ESDSIZE=$(hdiutil imageinfo ./"$ESD_NAME".dmg | grep --line-buffered -e 'Total Non-Empty Bytes:' | cut -d ' ' -f4)
+	EFISIZE=$(hdiutil imageinfo ./"$ESD_NAME".dmg | grep --line-buffered -e 'partition-name: EFI System Partition' -A7 | grep -e 'partition-length:' | cut -d ' ' -f2)
+	echo '' ; echo "$ESD_NAME.dmg" && echo "Filesize (bytes): $ESDSIZE" ; echo ''
 
 [ ! -f "$RELEASE-$VERSION.dmg" ] && hdiutil create -o ./"$RELEASE-$VERSION".dmg -size "7350m" -volname "$RELEASE-$VERSION" -layout SPUD -fs HFS+J
 	set -x && hdiutil attach ./"$RELEASE-$VERSION".dmg -noverify -mountpoint /Volumes/"$RELEASE-$VERSION"
