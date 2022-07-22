@@ -24,7 +24,6 @@
 	DMG_NAME="macOS-$VERSION-$RELEASE"
 	ESD_NAME="macOS-$VERSION-InstallESD"
 	ISO_FULL="$DIR_PATH/$DMG_NAME"
-	
 	APPLEURL=https://support.apple.com/en-us/HT211683
 	URL_1010=http://updates-http.cdn-apple.com/2019/cert/061-41343-20191023-02465f92-3ab5-4c92-bfe2-b725447a070d/InstallMacOSX.dmg
 	URL_1011=http://updates-http.cdn-apple.com/2019/cert/061-41424-20191024-218af9ec-cf50-4516-9011-228c78eda3d2/InstallMacOSX.dmg
@@ -69,8 +68,8 @@ hdiutil detach /Volumes/"$RELEASE-$VERSION"
 hdiutil detach /Volumes/"OSX-$VERSION-InstallESD"
 
 [ -e "./$RELEASE-$VERSION.dmg" ] && mv ./"$RELEASE-$VERSION".dmg ./"$RELEASE-$VERSION".iso
-[ -e "./$RELEASE-$VERSION.iso" ] && rm ./"$DMG_NAME".dmg ./"$ESD_NAME".dmg 2>/dev/null
-[ ! -e "macOS-$VERSION-$RELEASE.iso" ] && mv "$RELEASE-$VERSION".iso "macOS-$VERSION-$RELEASE".iso
-[ -e "macOS-$VERSION-$RELEASE.iso" ] && echo '' && echo "MacOS ISO Success: $DIR_PATH/macOS-$VERSION-$RELEASE.iso" && echo ''
+[ -e "./$RELEASE-$VERSION.iso" ] && rm ./"$ESD_NAME".dmg ./"$DMG_NAME".dmg 2>/dev/null
+[ ! -e "./macOS-$VERSION-$RELEASE.iso" ] && mv ./"$RELEASE-$VERSION".iso ./"macOS-$VERSION-$RELEASE".iso
+[ -e "$ISO_FULL.iso" ] && echo '' && echo "MacOS ISO Success: $ISO_FULL.iso" && echo ''
 read -p "Press enter to continue"
 exit 0
