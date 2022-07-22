@@ -17,6 +17,7 @@
 	
 	VERSION="10.11.X"
 	RELEASE="ElCapitan"
+	ISO_SIZE="7350m"
 	APP_NAME="Install OS X El Capitan"
 	APP_PATH="/Applications/$APP_NAME"
 	DIR_PATH="$HOME/Desktop/OSX-ISO"
@@ -48,7 +49,7 @@ fi
 	EFISIZE=$(hdiutil imageinfo ./"$ESD_NAME".dmg | grep --line-buffered -e 'partition-name: EFI System Partition' -A7 | grep -e 'partition-length:' | cut -d ' ' -f2)
 	echo '' ; echo "$ESD_NAME.dmg" && echo "Filesize (bytes): $ESDSIZE" ; echo ''
 
-[ ! -f "$RELEASE-$VERSION.dmg" ] && hdiutil create -o ./"$RELEASE-$VERSION".dmg -size "7350m" -volname "$RELEASE-$VERSION" -layout SPUD -fs HFS+J
+[ ! -f "$RELEASE-$VERSION.dmg" ] && hdiutil create -o ./"$RELEASE-$VERSION".dmg -size "$ISO_SIZE" -volname "$RELEASE-$VERSION" -layout SPUD -fs HFS+J
 	hdiutil attach ./"$RELEASE-$VERSION".dmg -noverify -mountpoint /Volumes/"$RELEASE-$VERSION"
 
 [ -e /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.dmg ] && asr restore -source /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.dmg -target /Volumes/"$RELEASE-$VERSION" -noprompt -noverify -erase
