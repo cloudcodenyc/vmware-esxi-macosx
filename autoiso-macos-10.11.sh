@@ -71,5 +71,6 @@ hdiutil detach /Volumes/"OSX-$VERSION-InstallESD"
 [ -e "./$RELEASE-$VERSION.iso" ] && rm ./"$ESD_NAME".dmg ./"$DMG_NAME".dmg 2>/dev/null
 [ ! -e "./macOS-$VERSION-$RELEASE.iso" ] && mv ./"$RELEASE-$VERSION".iso ./"macOS-$VERSION-$RELEASE".iso
 [ -e "$ISO_FULL.iso" ] && echo '' && echo "MacOS ISO Success: $ISO_FULL.iso" && echo ''
+
 read -p "Press enter to continue"
 exit 0
