@@ -41,14 +41,14 @@ if [ -e "$DMG_NAME".dmg ]; then
 fi
 
 [ -e "./Install-OSX-$VERSION/" ] && rm -rf "./Install-OSX-$VERSION/"
-	hdiutil attach "./$ESD_NAME.dmg" -noverify -nobrowse -mountpoint "/Volumes/OSX-$VERSION-InstallESD/"
+	hdiutil attach "$ESD_NAME".dmg -noverify -nobrowse -mountpoint "/Volumes/OSX-$VERSION-InstallESD/"
 	# Get InstallESD.dmg Total Non-Empty Size ( Bytes )
 	ESDSIZE=$(hdiutil imageinfo ./"$ESD_NAME".dmg | grep --line-buffered -e 'Total Non-Empty Bytes:' | cut -d ' ' -f4)
 	EFISIZE=$(hdiutil imageinfo ./"$ESD_NAME".dmg | grep --line-buffered -e 'partition-name: EFI System Partition' -A7 | grep -e 'partition-length:' | cut -d ' ' -f2)
-	echo '' ; echo "$ESD_NAME.dmg" && echo "Filesize (bytes): $COUNT" ; echo ''
+	echo '' ; echo "$ESD_NAME.dmg" && echo "Filesize (bytes): $ESDSIZE" ; echo ''
 
-[ ! -f "$RELEASE-$VERSION.dmg" ] && hdiutil create -o ./"$RELEASE-$VERSION".dmg -size "735	0m" -volname "$RELEASE-$VERSION" -layout SPUD -fs HFS+J
-	set -x && hdiutil attach ./"$RELEASE-$VERSION".dmg -noverify -mountpoint /Volumes/"$RELEASE-$VERSION"
+[ ! -f "$RELEASE-$VERSION.dmg" ] && hdiutil create -o ./"$RELEASE-$VERSION".dmg -size "7350m" -volname "$RELEASE-$VERSION" -layout SPUD -fs HFS+J
+	hdiutil attach ./"$RELEASE-$VERSION".dmg -noverify -mountpoint /Volumes/"$RELEASE-$VERSION"
 
 [ -e /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.dmg ] && asr restore -source /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.dmg -target /Volumes/"$RELEASE-$VERSION" -noprompt -noverify -erase
 	hdiutil detach /Volumes/"OS X Base System" || true
@@ -61,15 +61,14 @@ hdiutil attach ./"$RELEASE-$VERSION".dmg -noverify -mountpoint /Volumes/"$RELEAS
 	cp -rp /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.chunklist 	/Volumes/"$RELEASE-$VERSION"
 	cp -rp /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.dmg 		/Volumes/"$RELEASE-$VERSION"
 
-set +x
 hdiutil detach /Volumes/"$RELEASE-$VERSION"
 hdiutil detach /Volumes/"OSX-$VERSION-InstallESD"
 
 [ -e "./$RELEASE-$VERSION.dmg" ] && mv ./"$RELEASE-$VERSION".dmg ./"$RELEASE-$VERSION".iso
-[ -e "./$RELEASE-$VERSION.iso" ] && rm ./"$DMG_NAME".dmg ./"$ESD_NAME".dmg 2>/dev/null
+[ -e "./$RELEASE-$VERSION.iso" ] && rm ./"$ESD_NAME".dmg ./"$DMG_NAME".dmg 2>/dev/null
 
 [ ! -e "macOS-$VERSION-$RELEASE.iso" ] && mv "$RELEASE-$VERSION".iso "macOS-$VERSION-$RELEASE".iso
-[ -e "macOS-$VERSION-$RELEASE.iso" ] && set +x && echo '' && echo "MacOS ISO Success: $DIR_PATH/macOS-$VERSION-$RELEASE.iso" && echo ''
+[ -e "$ISO_FULL.iso" ] && echo '' && echo "MacOS ISO Success: $DIR_PATH/macOS-$VERSION-$RELEASE.iso" && echo ''
 read -p "Press enter to continue"
 
 exit 0
