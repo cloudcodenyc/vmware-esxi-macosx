@@ -3,7 +3,7 @@
 ###############################################################################
 # Enable native Guest Tools for MacOS X ("darwin") on VMware ESXi v6/v7       #
 #                                                                             #
-# VERSION  = 0.0.1                                                            #
+# VERSION  = 0.0.2                                                            #
 # FILENAME = autovmx-darwin-tools.sh                                          #
 # LOCATION = https://github.com/cloudcodenyc/vmware-esxi-macosx               #
 # LICENSE  = BSD-3                                                            #

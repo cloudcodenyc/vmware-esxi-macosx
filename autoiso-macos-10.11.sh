@@ -1,8 +1,9 @@
 #!/bin/sh
+#
 ###############################################################################
 # MacOS-10.11-(ElCapitan): Automatically download and generate bootable ISO   #
 #                                                                             #
-# VERSION  = 0.0.1                                                            #
+# VERSION  = 0.0.2                                                            #
 # FILENAME = autoiso-macos-10.11.sh                                           #
 # LOCATION = https://github.com/cloudcodenyc/vmware-esxi-macosx               #
 # LICENSE  = BSD-3                                                            #
@@ -47,8 +48,9 @@ fi
 	EFISIZE=$(hdiutil imageinfo ./"$ESD_NAME".dmg | grep --line-buffered -e 'partition-name: EFI System Partition' -A7 | grep -e 'partition-length:' | cut -d ' ' -f2)
 	echo '' ; echo "$ESD_NAME.dmg" && echo "Filesize (bytes): $ESDSIZE" ; echo ''
 
+set -x
 [ ! -f "$RELEASE-$VERSION.dmg" ] && hdiutil create -o ./"$RELEASE-$VERSION".dmg -size "7350m" -volname "$RELEASE-$VERSION" -layout SPUD -fs HFS+J
-	set -x && hdiutil attach ./"$RELEASE-$VERSION".dmg -noverify -mountpoint /Volumes/"$RELEASE-$VERSION"
+	hdiutil attach ./"$RELEASE-$VERSION".dmg -noverify -mountpoint /Volumes/"$RELEASE-$VERSION"
 
 [ -e /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.dmg ] && asr restore -source /Volumes/"OSX-$VERSION-InstallESD"/BaseSystem.dmg -target /Volumes/"$RELEASE-$VERSION" -noprompt -noverify -erase
 	hdiutil detach /Volumes/"OS X Base System" || true
@@ -67,9 +69,7 @@ hdiutil detach /Volumes/"OSX-$VERSION-InstallESD"
 
 [ -e "./$RELEASE-$VERSION.dmg" ] && mv ./"$RELEASE-$VERSION".dmg ./"$RELEASE-$VERSION".iso
 [ -e "./$RELEASE-$VERSION.iso" ] && rm ./"$DMG_NAME".dmg ./"$ESD_NAME".dmg 2>/dev/null
-
 [ ! -e "macOS-$VERSION-$RELEASE.iso" ] && mv "$RELEASE-$VERSION".iso "macOS-$VERSION-$RELEASE".iso
 [ -e "macOS-$VERSION-$RELEASE.iso" ] && echo '' && echo "MacOS ISO Success: $DIR_PATH/macOS-$VERSION-$RELEASE.iso" && echo ''
 read -p "Press enter to continue"
-
 exit 0
