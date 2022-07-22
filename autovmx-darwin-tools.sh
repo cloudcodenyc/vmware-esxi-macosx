@@ -3,7 +3,7 @@
 ###############################################################################
 # Enable native Guest Tools for MacOS X ("darwin") on VMware ESXi v6/v7       #
 #                                                                             #
-# VERSION  = 0.0.2                                                            #
+# VERSION  = 0.0.3                                                            #
 # FILENAME = autovmx-darwin-tools.sh                                          #
 # LOCATION = https://github.com/cloudcodenyc/vmware-esxi-macosx               #
 # LICENSE  = BSD-3                                                            #
@@ -29,9 +29,9 @@
 [ ! -e "$VMXUSER" ] && mkdir "$VMXUSER" ; mkdir $VMXUSER/darwin-active $VMXUSER/darwin-stable $VMXUSER/darwin-fusion 2>/dev/null
 
 	# Create symbolic links in user accessible storage that redirects to the "darwin-active" directory
-	[ ! -e "$VMXUSER/darwin.iso" ] && cd "$VMXUSER" && ln -s darwin-active/darwin.iso ./darwin.iso
-	[ ! -e "$VMXUSER/darwin.iso.sha" ] && cd "$VMXUSER" && ln -s darwin-active/darwin.iso.sha ./darwin.iso.sha
-	[ ! -e "$VMXUSER/darwin.iso.sig" ] && cd "$VMXUSER" && ln -s darwin-active/darwin.iso.sig ./darwin.iso.sig
+	[ ! -e "$VMXUSER/darwin.iso" ] && cd "$VMXUSER" && ln -s "$PWD/darwin-active/darwin.iso" ./darwin.iso
+	[ ! -e "$VMXUSER/darwin.iso.sha" ] && cd "$VMXUSER" && ln -s "$PWD/darwin-active/darwin.iso.sha" ./darwin.iso.sha
+	[ ! -e "$VMXUSER/darwin.iso.sig" ] && cd "$VMXUSER" && ln -s "$PWD/darwin-active/darwin.iso.sig" ./darwin.iso.sig
 
 [ ! -e $VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar ] && wget "$VMX_V11" -O $VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar
 	[ -f $VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar ] && TOOLS_V11="$VMXUSER/darwin-fusion/darwin-fusion-11.1.0"
