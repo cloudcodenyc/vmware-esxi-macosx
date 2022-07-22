@@ -29,8 +29,7 @@
 	URL_1011=http://updates-http.cdn-apple.com/2019/cert/061-41424-20191024-218af9ec-cf50-4516-9011-228c78eda3d2/InstallMacOSX.dmg
 	URL_1012=http://updates-http.cdn-apple.com/2019/cert/061-39476-20191023-48f365f4-0015-4c41-9f44-39d3d2aca067/InstallOS.dmg
 	
-if [ ! -e "$DIR_PATH" ] && mkdir "$DIR_PATH"; 
-if [ -e "$DIR_PATH" ] && cd "$DIR_PATH";
+if [ ! -e "$DIR_PATH" ]; then mkdir "$DIR_PATH"; elif [ -e "$DIR_PATH" ]; then cd "$DIR_PATH"; else echo "ISO DIRECTORY ERROR"; fi
 	[ ! -e "$PWD/$DMG_NAME".dmg ] && curl -L --url "$URL_1011" -o "$DMG_NAME".dmg
 
 if [ -e "$DMG_NAME".dmg ]; then
