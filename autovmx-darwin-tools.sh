@@ -40,13 +40,13 @@
 [ ! -e $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ] && wget "$VMX_V10" -O $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ;
 	[ -f $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ] && TOOLS_V10="$VMXUSER/darwin-fusion/darwin-fusion-10.1.6"
 		
-[ ! -e "$TOOLS_V11" ] && mkdir "$TOOLS_V11" && tar xv -C "$TOOLS_V11"/ -f "$TOOLS_V11".zip.tar && unzip -j "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V11"/
+[ ! -e "$TOOLS_V11" ] && mkdir "$TOOLS_V11" && tar xv -C "$TOOLS_V11"/ -f "$TOOLS_V11".zip.tar ; unzip -j "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V11"/ ;
 	[ -f "$TOOLS_V11/darwin.iso" ] && rm -f "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" "$TOOLS_V11/descriptor.xml" 2>/dev/null
-		[ ! -e "$VMXUSER/darwin-active/darwin.iso" ]	&& cd "$TOOLS_V11" && cp -pu *darwin* $VMXUSER/darwin-active/
+		[ ! -e "$VMXUSER/darwin-active/darwin.iso" ] && cp -pu "$TOOLS_V11/*darwin*" $VMXUSER/darwin-active/
 	
-[ ! -e "$TOOLS_V10" ] && mkdir "$TOOLS_V10" && tar xv -C "$TOOLS_V10"/ -f "$TOOLS_V10".zip.tar && unzip -j "$TOOLS_V10/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V10"/
+[ ! -e "$TOOLS_V10" ] && mkdir "$TOOLS_V10" && tar xv -C "$TOOLS_V10"/ -f "$TOOLS_V10".zip.tar ; unzip -j "$TOOLS_V10/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V10"/ ;
 	[ -f "$TOOLS_V10/darwin.iso" ] && rm -f "$TOOLS_V10/com.vmware.fusion.tools.darwin.zip" "$TOOLS_V10/descriptor.xml" 2>/dev/null
-		[ ! -e "$VMXUSER/darwin-active/darwin.iso" ]	&& cd "$TOOLS_V10" && cp -pu *darwin* $VMXUSER/darwin-active/	
+		[ ! -e "$VMXUSER/darwin-active/darwin.iso" ] && cd "$TOOLS_V10" && cp -pu *darwin* $VMXUSER/darwin-active/	
 	
 	# Create symbolic links in "vmtoolsRepo" that redirect to VMware "darwin" Guest Tools ISO
 	[ ! -e "$VMXREPO/darwin.iso" ] && cd "$VMXREPO" && ln -s "$VMXUSER"/darwin.iso ./darwin.iso
