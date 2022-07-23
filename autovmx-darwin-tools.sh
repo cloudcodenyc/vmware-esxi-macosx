@@ -18,7 +18,9 @@
 
 	VMX_URL="http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/"
 	VMX_V11="http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/11.1.0/13668589/packages/com.vmware.fusion.tools.darwin.zip.tar"
+	PRE_v11="http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/11.1.0/13668589/packages/com.vmware.fusion.tools.darwinPre15.zip.tar"
 	VMX_V10="http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/10.1.6/12989998/packages/com.vmware.fusion.tools.darwin.zip.tar"
+	PRE_V10="http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/10.1.6/12989998/packages/com.vmware.fusion.tools.darwinPre15.zip.tar"
 	VMX_ARM="http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/12.2.3/19436697/arm64/core/com.vmware.fusion.zip.tar"
 	VMX_X86="http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/12.2.3/19436697/x86/core/com.vmware.fusion.zip.tar"
 
@@ -37,12 +39,19 @@
 [ ! -e "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && wget "$VMX_V11" -O "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ;
 	[ -f "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && TOOLS_V11="$VMXUSER/darwin-fusion/darwin-fusion-11.1.0"
 
+[ ! -e "$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar" ] && wget "$PRE_V11" -O "$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar" ;
+	[ -f "$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar" ] && V11_TOOLS="$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0"
+
 [ ! -e $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ] && wget "$VMX_V10" -O $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ;
 	[ -f $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ] && TOOLS_V10="$VMXUSER/darwin-fusion/darwin-fusion-10.1.6"
 		
 [ ! -e "$TOOLS_V11" ] && mkdir "$TOOLS_V11" && tar xv -C "$TOOLS_V11"/ -f "$TOOLS_V11".zip.tar ; unzip -j "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V11"/ ;
 	[ -f "$TOOLS_V11/darwin.iso" ] && rm -f "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" "$TOOLS_V11/descriptor.xml" 2>/dev/null
 		[ ! -e "$VMXUSER/darwin-active/darwin.iso" ] && cp -pu "$TOOLS_V11/*darwin*" $VMXUSER/darwin-active/
+	
+[ ! -e "$V11_TOOLS" ] && mkdir "$V11_TOOLS" && tar xv -C "$V11_TOOLS"/ -f "$V11_TOOLS".zip.tar ; unzip -j "$V11_TOOLS/com.vmware.fusion.tools.darwinPre15.zip" -d "$V11_TOOLS"/ ;
+	[ -f "$V11_TOOLS/darwinPre15.iso" ] && rm -f "$V11_TOOLS/com.vmware.fusion.tools.darwinPre15.zip" "$V11_TOOLS/descriptor.xml" 2>/dev/null
+		[ ! -e "$VMXUSER/darwin-active/darwinPre15.iso" ] && cp -pu "$V11_TOOLS/*Pre15*" $VMXUSER/darwin-active/	
 	
 [ ! -e "$TOOLS_V10" ] && mkdir "$TOOLS_V10" && tar xv -C "$TOOLS_V10"/ -f "$TOOLS_V10".zip.tar ; unzip -j "$TOOLS_V10/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V10"/ ;
 	[ -f "$TOOLS_V10/darwin.iso" ] && rm -f "$TOOLS_V10/com.vmware.fusion.tools.darwin.zip" "$TOOLS_V10/descriptor.xml" 2>/dev/null
