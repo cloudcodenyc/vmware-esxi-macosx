@@ -36,14 +36,17 @@
 	[ ! -e "$VMXUSER/darwin.iso.sha" ] && cd "$VMXUSER" && ln -s "$PWD/darwin-active/darwin.iso.sha" ./darwin.iso.sha
 	[ ! -e "$VMXUSER/darwin.iso.sig" ] && cd "$VMXUSER" && ln -s "$PWD/darwin-active/darwin.iso.sig" ./darwin.iso.sig
 
-[ ! -e "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && wget "$VMX_V11" -O "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ;
-	[ -f "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && TOOLS_V11="$VMXUSER/darwin-fusion/darwin-fusion-11.1.0"
+[ ! -e "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && wget "$VMX_V11" -O "$VMXUSER"/darwin-fusion/darwin-fusion-11.1.0.zip.tar
+[ -f "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && TOOLS_V11="$VMXUSER/darwin-fusion/darwin-fusion-11.1.0"
 
-[ ! -e "$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar" ] && wget "$PRE_V11" -O "$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar" ;
+	[ ! -e "$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar" ] && wget "$PRE_V11" -O "$VMXUSER"/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar
 	[ -f "$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0.zip.tar" ] && V11_TOOLS="$VMXUSER/darwin-fusion/darwinPre15-fusion-11.1.0"
 
-[ ! -e "$VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar" ] && wget "$VMX_V10" -O $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ;
-	[ -f "$VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar" ] && TOOLS_V10="$VMXUSER/darwin-fusion/darwin-fusion-10.1.6"
+[ ! -e "$VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar" ] && wget "$VMX_V10" -O "$VMXUSER"/darwin-fusion/darwin-fusion-10.1.6.zip.tar
+[ -f "$VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar" ] && TOOLS_V10="$VMXUSER/darwin-fusion/darwin-fusion-10.1.6"
+
+	[ ! -e "$VMXUSER/darwin-fusion/darwinPre15-fusion-10.1.6.zip.tar" ] && wget "$PRE_V10" -O "$VMXUSER"/darwin-fusion/darwinPre15-fusion-10.1.6.zip.tar
+	[ -f "$VMXUSER/darwin-fusion/darwinPre15-fusion-10.1.6.zip.tar" ] && V10_TOOLS="$VMXUSER/darwin-fusion/darwinPre15-fusion-10.1.6"
 		
 [ ! -e "$TOOLS_V11" ] && mkdir "$TOOLS_V11" && tar xv -C "$TOOLS_V11"/ -f "$TOOLS_V11".zip.tar ; unzip -j "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V11"/ ;
 	[ -f "$TOOLS_V11/darwin.iso" ] && rm -f "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" "$TOOLS_V11/descriptor.xml" 2>/dev/null
@@ -51,7 +54,7 @@
 	
 [ ! -e "$V11_TOOLS" ] && mkdir "$V11_TOOLS" && tar xv -C "$V11_TOOLS"/ -f "$V11_TOOLS".zip.tar ; unzip -j "$V11_TOOLS/com.vmware.fusion.tools.darwinPre15.zip" -d "$V11_TOOLS"/ ;
 	[ -f "$V11_TOOLS/darwinPre15.iso" ] && rm -f "$V11_TOOLS/com.vmware.fusion.tools.darwinPre15.zip" "$V11_TOOLS/descriptor.xml" 2>/dev/null
-		[ ! -e "$VMXUSER/darwin-active/darwinPre15.iso" ] && cp -pu "$V11_TOOLS/*Pre15*" $VMXUSER/darwin-active/	
+		[ ! -e "$VMXUSER/darwin-active/darwinPre15.iso" ] && cp -pu "$V11_TOOLS/*darwinPre15*" $VMXUSER/darwin-active/	
 	
 [ ! -e "$TOOLS_V10" ] && mkdir "$TOOLS_V10" && tar xv -C "$TOOLS_V10"/ -f "$TOOLS_V10".zip.tar ; unzip -j "$TOOLS_V10/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V10"/ ;
 	[ -f "$TOOLS_V10/darwin.iso" ] && rm -f "$TOOLS_V10/com.vmware.fusion.tools.darwin.zip" "$TOOLS_V10/descriptor.xml" 2>/dev/null
@@ -61,5 +64,8 @@
 	[ ! -e "$VMXREPO/darwin.iso" ] && cd "$VMXREPO" && ln -s "$VMXUSER"/darwin.iso ./darwin.iso
 	[ ! -e "$VMXREPO/darwin.iso.sha" ] && cd "$VMXREPO" && ln -s "$VMXUSER"/darwin.iso.sha ./darwin.iso.sha
 	[ ! -e "$VMXREPO/darwin.iso.sig" ] && cd "$VMXREPO" && ln -s "$VMXUSER"/darwin.iso.sig ./darwin.iso.sig
+	# Create symbolic links in "vmtoolsRepo" that redirect to VMware "darwinPre15" Guest Tools ISO
+	[ ! -e "$VMXREPO/darwinPre15.iso" ] && cd "$VMXREPO" && ln -s "$VMXUSER"/darwin-active/darwinPre15.iso ./darwinPre15.iso
+	[ ! -e "$VMXREPO/darwin:Pre15.iso.sig" ] && cd "$VMXREPO" && ln -s "$VMXUSER"/darwin-active/darwinPre15.iso.sig ./darwinPre15.iso.sig
 	
 cd "$VMXUSER"/ ; exit 0
