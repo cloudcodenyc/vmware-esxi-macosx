@@ -9,6 +9,7 @@
 # LICENSE  = BSD-3                                                            #
 #                                                                             #
 ###############################################################################
+# REMOVE   = rm -rf /vmfs/volumes/datastore1/.vmtools-osx/ ; rm -f /productLocker/vmtools/*darwin*
 #
 # https://docs.vmware.com/en/VMware-Tools
 # https://kb.vmware.com/s/article/2129825 (Installing and upgrading the latest version of VMware Tools)
@@ -33,10 +34,10 @@
 	[ ! -e "$VMXUSER/darwin.iso.sha" ] && cd "$VMXUSER" && ln -s "$PWD/darwin-active/darwin.iso.sha" ./darwin.iso.sha
 	[ ! -e "$VMXUSER/darwin.iso.sig" ] && cd "$VMXUSER" && ln -s "$PWD/darwin-active/darwin.iso.sig" ./darwin.iso.sig
 
-[ ! -e $VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar ] && wget "$VMX_V11" -O $VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar
-	[ -f $VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar ] && TOOLS_V11="$VMXUSER/darwin-fusion/darwin-fusion-11.1.0"
+[ ! -e "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && wget "$VMX_V11" -O "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ;
+	[ -f "$VMXUSER/darwin-fusion/darwin-fusion-11.1.0.zip.tar" ] && TOOLS_V11="$VMXUSER/darwin-fusion/darwin-fusion-11.1.0"
 
-[ ! -e $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ] && wget "$VMX_V10" -O $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar
+[ ! -e $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ] && wget "$VMX_V10" -O $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ;
 	[ -f $VMXUSER/darwin-fusion/darwin-fusion-10.1.6.zip.tar ] && TOOLS_V10="$VMXUSER/darwin-fusion/darwin-fusion-10.1.6"
 		
 [ ! -e "$TOOLS_V11" ] && mkdir "$TOOLS_V11" && tar xv -C "$TOOLS_V11"/ -f "$TOOLS_V11".zip.tar && unzip -j "$TOOLS_V11/com.vmware.fusion.tools.darwin.zip" -d "$TOOLS_V11"/
