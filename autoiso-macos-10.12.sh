@@ -3,7 +3,7 @@
 ###############################################################################
 # MacOS-10.12-(Sierra): Automatically download and generate bootable ISO      #
 #                                                                             #
-# VERSION  = 0.0.1                                                            #
+# VERSION  = 0.0.4                                                            #
 # FILENAME = autoiso-macos-10.12.sh                                           #
 # LOCATION = https://github.com/cloudcodenyc/vmware-esxi-macosx               #
 # LICENSE  = BSD-3                                                            #
@@ -18,7 +18,7 @@
 	
 	VERSION="10.12.X"
 	RELEASE="Sierra"
-	ISO_SIZE="6350m"
+	ISO_SIZE="6050m"
 	
 	APP_NAME="Install OS X $RELEASE"
 	APP_PATH="/Applications/$APP_NAME"
